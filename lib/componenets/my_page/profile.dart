@@ -9,9 +9,18 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: 100,
-          backgroundImage: AssetImage('/assets/images/profile.avif'),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            image: DecorationImage(
+              image: AssetImage(
+                'assets/images/profile.avif',
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+          width: 80,
+          height: 80,
         )
       ],
     );
