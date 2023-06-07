@@ -1,3 +1,4 @@
+import 'package:dnd_order_app/componenets/my_page/my_page_menu.dart';
 import 'package:dnd_order_app/componenets/my_page/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class MyPage extends StatelessWidget {
         body: Column(
           children: [
             Profile(),
+            MyPageMenu(),
           ],
         ));
   }

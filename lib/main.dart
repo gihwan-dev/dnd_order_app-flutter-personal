@@ -80,6 +80,7 @@ class _MainAppState extends State<MainApp> {
     userInfoController.setPhoneNumber('010-6606-9806');
     userInfoController.setUserAddress('부산광역시 사상구 가야대로 384');
     userInfoController.setUserDetailAddress('308호');
+    userInfoController.setUserEmail('rlghks3004@gmail.com');
 
     return MaterialApp(
       home: Scaffold(
