@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class AllStoreController extends GetxController {
@@ -36,6 +37,8 @@ class MyCartController extends GetxController {
   var request = ''.obs;
   var payMethod = ''.obs;
   var payStatus = false.obs;
+  var longitude = ''.obs;
+  var latitude = ''.obs;
 
   void addItem(Item item) {
     if (cart.contains(item)) {
@@ -78,6 +81,9 @@ class UserInfoController extends GetxController {
   var userDetailAddress = ''.obs;
   var userEmail = ''.obs;
   var userPostCode = ''.obs;
+  var userPassword = ''.obs;
+  var token = ''.obs;
+  final dio = Dio();
 
   void setName(String enteredName) {
     userName.value = enteredName;
@@ -101,5 +107,65 @@ class UserInfoController extends GetxController {
 
   void setUserPostCode(String enteredPostCode) {
     userPostCode.value = enteredPostCode;
+  }
+
+  void setUserPassword(String enteredPassword) {
+    userPassword.value = enteredPassword;
+  }
+}
+
+class CreateUserController extends GetxController {
+  var userName = ''.obs;
+  var phoneNumber = ''.obs;
+  var userAddress = ''.obs;
+  var userDetailAddress = ''.obs;
+  var userEmail = ''.obs;
+  var userPostCode = ''.obs;
+  var userPassword = ''.obs;
+  var token = ''.obs;
+  final dio = Dio();
+
+  void setName(String enteredName) {
+    userName.value = enteredName;
+  }
+
+  void setPhoneNumber(String enteredPhoneNumber) {
+    phoneNumber.value = enteredPhoneNumber;
+  }
+
+  void setUserAddress(String enteredAddress) {
+    userAddress.value = enteredAddress;
+  }
+
+  void setUserDetailAddress(String enteredDetailAddress) {
+    userDetailAddress.value = enteredDetailAddress;
+  }
+
+  void setUserEmail(String enteredEmail) {
+    userEmail.value = enteredEmail;
+  }
+
+  void setUserPostCode(String enteredPostCode) {
+    userPostCode.value = enteredPostCode;
+  }
+
+  void setUserPassword(String enteredPassword) {
+    userPassword.value = enteredPassword;
+  }
+
+  void createNewUser() async {
+    final response = await dio.put(
+      'http:localhost:8080/user',
+      data: {
+        userName: userName.value,
+        userEmail: userEmail.value,
+        userPassword: userPassword.value,
+        phoneNumber: phoneNumber.value,
+        userAddress: userAddress.value,
+        userDetailAddress: userDetailAddress.value,
+        userPostCode: userPostCode.value,
+      },
+    );
+    print(response);
   }
 }
