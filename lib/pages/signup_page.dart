@@ -20,8 +20,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    String address = createUserController.userAddress.value;
-    String postCode = createUserController.userPostCode.value;
+    String address = '';
+    String postCode = '';
 
     KpostalView kakaoPostal() {
       return KpostalView(
@@ -99,10 +99,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   TextButton(
                     child: Text('변경'),
-                    onPressed: () => {
-                      MaterialPageRoute(
-                        builder: (_) => kakaoPostal(),
-                      ),
+                    onPressed: () async {
+                      await Get.to(() => kakaoPostal());
                     },
                   ),
                 ],

@@ -81,7 +81,6 @@ class UserInfoController extends GetxController {
   var userDetailAddress = ''.obs;
   var userEmail = ''.obs;
   var userPostCode = ''.obs;
-  var userPassword = ''.obs;
   var token = ''.obs;
   final dio = Dio();
 
@@ -108,10 +107,6 @@ class UserInfoController extends GetxController {
   void setUserPostCode(String enteredPostCode) {
     userPostCode.value = enteredPostCode;
   }
-
-  void setUserPassword(String enteredPassword) {
-    userPassword.value = enteredPassword;
-  }
 }
 
 class CreateUserController extends GetxController {
@@ -122,7 +117,6 @@ class CreateUserController extends GetxController {
   var userEmail = ''.obs;
   var userPostCode = ''.obs;
   var userPassword = ''.obs;
-  var token = ''.obs;
   final dio = Dio();
 
   void setName(String enteredName) {
@@ -154,8 +148,8 @@ class CreateUserController extends GetxController {
   }
 
   void createNewUser() async {
-    final response = await dio.put(
-      'http:localhost:8080/user',
+    final response = await dio.post(
+      'http://192.168.0.2:8000/user',
       data: {
         userName: userName.value,
         userEmail: userEmail.value,

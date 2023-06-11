@@ -23,6 +23,7 @@ dependencies:
   kakao_flutter_sdk: ^1.4.1 # 전체 추가
   dio: ^5.2.0+1
   kpostal: ^0.5.1
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:
