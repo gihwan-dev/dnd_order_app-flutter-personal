@@ -2,6 +2,7 @@ import 'package:dnd_order_app/componenets/category_page/category_filter.dart';
 import 'package:dnd_order_app/componenets/category_page/category_list.dart';
 import 'package:dnd_order_app/componenets/mainpage/category_food.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class CategoryPage extends StatefulWidget {
   CategoryPage({
@@ -12,7 +13,7 @@ class CategoryPage extends StatefulWidget {
   final String menu;
   final Function onCategoryTapped;
 
-  final List<String> FOOD_KR = ['햄버거', '피자', '족발', '치킨', '중국집', '한식'];
+  final List<String> FOOD_KR = ['햄버거', '피자', '디저트', '치킨', '중국집', '한식'];
 
   @override
   State<CategoryPage> createState() => _CategoryPageState();
@@ -33,12 +34,17 @@ class _CategoryPageState extends State<CategoryPage> {
           Padding(
               padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
               child: Expanded(
-                child: Container(
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.grey)),
-                  width: 400,
-                  height: 350,
-                  child: CategoryList(),
+                child: Neumorphic(
+                  style: NeumorphicStyle(
+                    shape: NeumorphicShape.flat,
+                    lightSource: LightSource.top,
+                    depth: 10,
+                  ),
+                  child: Container(
+                    width: 400,
+                    height: 350,
+                    child: CategoryList(),
+                  ),
                 ),
               ))
         ],

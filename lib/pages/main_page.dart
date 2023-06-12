@@ -14,20 +14,17 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GestureDetector(
-        onTap: () => {FocusScope.of(context).requestFocus(new FocusNode())},
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            AddressCheck(),
-            SearchingFood(),
-            CategoryFood(
-              onCategoryTapped: this.onCategoryTapped,
-              index: null,
-            ),
-            RecommendStore(),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          AddressCheck(),
+          SearchingFood(),
+          CategoryFood(
+            onCategoryTapped: this.onCategoryTapped,
+            index: null,
+          ),
+          RecommendStore(),
+        ],
       ),
     );
   }

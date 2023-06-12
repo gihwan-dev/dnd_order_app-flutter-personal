@@ -1,4 +1,5 @@
 import 'package:dnd_order_app/class/class.dart';
+import 'package:dnd_order_app/const/const.dart';
 import 'package:dnd_order_app/pages/cart_page.dart';
 import 'package:dnd_order_app/pages/category_page.dart';
 import 'package:dnd_order_app/pages/login_page.dart';
@@ -8,6 +9,8 @@ import 'package:dnd_order_app/pages/my_page.dart';
 import 'package:dnd_order_app/pages/splash_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
@@ -19,11 +22,33 @@ List<Store> DUMMY_STORE = [
 ];
 
 void main() {
-  runApp(
-    GetMaterialApp(
-      home: MainApp(),
-    ),
-  );
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      home: NeumorphicApp(
+        debugShowCheckedModeBanner: false,
+        title: 'DnD',
+        themeMode: ThemeMode.light,
+        theme: NeumorphicThemeData(
+          baseColor: BACKGROUND,
+          lightSource: LightSource.top,
+          depth: 10,
+        ),
+        darkTheme: NeumorphicThemeData(
+          baseColor: Color(0xFF3E3E3E),
+          lightSource: LightSource.topLeft,
+          depth: 6,
+        ),
+        home: MainApp(),
+      ),
+    );
+  }
 }
 
 class MainApp extends StatefulWidget {
@@ -38,9 +63,13 @@ class _MainAppState extends State<MainApp> {
   int currentIndex = 0;
   late Widget content;
 
+  final UserInfoController userInfoController = Get.put(
+    UserInfoController(),
+  );
+
   Future<String?> isUserSaved() async {
     final UserInfoController userInfoController = Get.find();
-    if (userInfoController != Null) {
+    if (userInfoController.userName.value != '') {
       return userInfoController.userEmail.value;
     }
     var storage = new FlutterSecureStorage();
@@ -50,7 +79,7 @@ class _MainAppState extends State<MainApp> {
 
   Future<void> isControllerExist(String? email) async {
     final UserInfoController userInfoController = Get.find();
-    if (userInfoController != Null) {
+    if (userInfoController.userEmail.value != '') {
       return;
     }
     userInfoController.getUserInfo(email);
@@ -101,17 +130,15 @@ class _MainAppState extends State<MainApp> {
       future: isUserSaved(),
       builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const MaterialApp(
-            home: Scaffold(
-              body: SplashPage(),
-            ),
+          return Scaffold(
+            backgroundColor: BACKGROUND,
+            body: SplashPage(),
           );
         } else if (snapshot.hasError) {
-          return const MaterialApp(
-            home: Scaffold(
-              body: Center(
-                child: Text("에러가 발생했습니다. 다시시도해 주세요."),
-              ),
+          return Scaffold(
+            backgroundColor: BACKGROUND,
+            body: Center(
+              child: Text("에러가 발생했습니다. 다시시도해 주세요."),
             ),
           );
         } else if (snapshot.data == null) {
@@ -126,57 +153,86 @@ class _MainAppState extends State<MainApp> {
             MyCartController(),
           );
 
-          final UserInfoController userInfoController = Get.put(
-            UserInfoController(),
-          );
-
           return FutureBuilder(
             future: isControllerExist(snapshot.data),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const MaterialApp(
-                  home: Scaffold(
-                    body: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                return Scaffold(
+                  backgroundColor: BACKGROUND,
+                  body: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 );
               } else if (snapshot.data == false) {
-                return const MaterialApp(
-                  home: Scaffold(
-                    body: Center(
-                      child: Text("에러가 발생했습니다. 다시시도해 주세요."),
-                    ),
+                return Scaffold(
+                  backgroundColor: BACKGROUND,
+                  body: Center(
+                    child: Text("에러가 발생했습니다. 다시시도해 주세요."),
                   ),
                 );
               } else {
-                return MaterialApp(
-                  home: Scaffold(
+                return GestureDetector(
+                  onTap: () => {
+                    FocusScope.of(context).requestFocus(new FocusNode()),
+                  },
+                  child: Scaffold(
+                    backgroundColor: BACKGROUND,
                     resizeToAvoidBottomInset: false,
                     bottomNavigationBar: BottomNavigationBar(
+                      elevation: 0,
                       showSelectedLabels: false,
                       showUnselectedLabels: false,
                       items: [
                         BottomNavigationBarItem(
-                          icon: Icon(Icons.home),
+                          activeIcon: Icon(
+                            Icons.home,
+                            color: Color.fromRGBO(255, 238, 187, 1),
+                          ),
+                          icon: Icon(
+                            Icons.home,
+                            color: Color.fromRGBO(154, 197, 244, 1),
+                          ),
                           label: '홈',
-                          backgroundColor: Colors.grey,
+                          backgroundColor: Color(0xFFFFFFFF),
                         ),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.shopping_cart),
-                            label: '장바구니',
-                            backgroundColor: Colors.grey),
+                          activeIcon: Icon(
+                            Icons.shopping_cart,
+                            color: Color.fromRGBO(255, 238, 187, 1),
+                          ),
+                          icon: Icon(
+                            Icons.shopping_cart,
+                            color: Color.fromRGBO(154, 197, 244, 1),
+                          ),
+                          label: '장바구니',
+                          backgroundColor: Color(0xFFFFFFFF),
+                        ),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.map),
-                            label: '지도',
-                            backgroundColor: Colors.grey),
+                          activeIcon: Icon(
+                            Icons.map,
+                            color: Color.fromRGBO(255, 238, 187, 1),
+                          ),
+                          icon: Icon(
+                            Icons.map,
+                            color: Color.fromRGBO(154, 197, 244, 1),
+                          ),
+                          label: '지도',
+                          backgroundColor: Color(0xFFFFFFFF),
+                        ),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.person),
-                            label: '마이페이지',
-                            backgroundColor: Colors.grey),
+                          activeIcon: Icon(
+                            Icons.person,
+                            color: Color.fromRGBO(255, 238, 187, 1),
+                          ),
+                          icon: Icon(
+                            Icons.person,
+                            color: Color.fromRGBO(154, 197, 244, 1),
+                          ),
+                          label: '마이페이지',
+                          backgroundColor: Color(0xFFFFFFFF),
+                        ),
                       ],
                       currentIndex: currentIndex,
-                      selectedItemColor: Colors.amber,
                       onTap: onTabTapped,
                     ),
                     body: content,

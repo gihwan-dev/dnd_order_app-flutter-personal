@@ -1,4 +1,6 @@
+import 'package:dnd_order_app/const/const.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class SearchingFood extends StatelessWidget {
   const SearchingFood({super.key});
@@ -6,11 +8,15 @@ class SearchingFood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.fromLTRB(25, 15, 25, 0),
+      padding: EdgeInsets.fromLTRB(25, 15, 25, 0),
+      child: Neumorphic(
+        style: NeumorphicStyle(
+          shape: NeumorphicShape.flat,
+          lightSource: LightSource.top,
+          depth: 10,
+        ),
         child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(),
           width: 380,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -25,12 +31,17 @@ class SearchingFood extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(
+                    Icons.search,
+                    color: BLUE,
+                  ),
                   onPressed: () => {},
                 )
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

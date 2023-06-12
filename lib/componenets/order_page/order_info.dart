@@ -27,28 +27,31 @@ class _OrderInfoState extends State<OrderInfo> {
           Row(
             children: [
               Text('주문자명: ${userInfoController.userName}'),
-              TextButton(
-                child: Text('변경'),
-                onPressed: () => {},
-              ),
+              TextField(
+                onChanged: (value) {
+                  userInfoController.userName.value = value;
+                },
+              )
             ],
           ),
           Row(
             children: [
               Text('주소: ${userInfoController.userAddress}'),
-              TextButton(
-                child: Text('변경'),
-                onPressed: () => {},
+              TextField(
+                onChanged: (value) {
+                  userInfoController.userAddress.value = value;
+                },
               ),
             ],
           ),
           Row(
             children: [
               Text("전화번호: ${userInfoController.userPhoneNumber}"),
-              TextButton(
-                child: Text('변경'),
-                onPressed: () => {},
-              )
+              TextField(
+                onChanged: (value) {
+                  userInfoController.userPhoneNumber.value = value;
+                },
+              ),
             ],
           ),
           Column(
@@ -56,6 +59,9 @@ class _OrderInfoState extends State<OrderInfo> {
             children: [
               Text('요청사항'),
               TextField(
+                onChanged: (value) {
+                  myCartController.request.value = value;
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: '요청사항을 입력해주세요.',

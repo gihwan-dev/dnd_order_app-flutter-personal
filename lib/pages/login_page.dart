@@ -175,108 +175,106 @@ class _LoginPageState extends State<LoginPage> {
           new FocusNode(),
         ),
       },
-      child: MaterialApp(
-        home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(),
-                Text(
-                  'Sign up',
-                  style: TextStyle(
-                    fontSize: 57,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(),
+              Text(
+                'Sign up',
+                style: TextStyle(
+                  fontSize: 57,
+                ),
+              ),
+              Text(
+                'Account',
+                style: TextStyle(
+                  fontSize: 57,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text('배달앱 시작을 위해 회원가입을 진행해주세요.'),
+              SizedBox(
+                height: 60,
+              ),
+              Container(
+                width: 300,
+                child: TextField(
+                  controller: textEditingController,
+                  onChanged: (value) => {
+                    onChangeHandler(value),
+                  },
+                  decoration: InputDecoration(
+                    labelText: label,
                   ),
                 ),
-                Text(
-                  'Account',
-                  style: TextStyle(
-                    fontSize: 57,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text('배달앱 시작을 위해 회원가입을 진행해주세요.'),
-                SizedBox(
-                  height: 60,
-                ),
-                Container(
-                  width: 300,
-                  child: TextField(
-                    controller: textEditingController,
-                    onChanged: (value) => {
-                      onChangeHandler(value),
-                    },
-                    decoration: InputDecoration(
-                      labelText: label,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateColor.resolveWith(
+                      (states) => buttonColor,
+                    ),
+                    padding: MaterialStatePropertyAll(
+                      EdgeInsets.fromLTRB(100, 0, 100, 0),
+                    ),
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
                     ),
                   ),
+                  onPressed: () => {
+                    buttonTappedHandler(),
+                    textEditingController.clear(),
+                  },
+                  child: Text('Continue'),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith(
-                        (states) => buttonColor,
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text('아래 이메일 계정으로 간편하게 시작하기'),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ...iconList.map(
+                    (icon) => Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      padding: MaterialStatePropertyAll(
-                        EdgeInsets.fromLTRB(100, 0, 100, 0),
-                      ),
-                      shape: MaterialStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                      ),
-                    ),
-                    onPressed: () => {
-                      buttonTappedHandler(),
-                      textEditingController.clear(),
-                    },
-                    child: Text('Continue'),
-                  ),
-                ),
-                SizedBox(
-                  height: 60,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text('아래 이메일 계정으로 간편하게 시작하기'),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ...iconList.map(
-                      (icon) => Container(
+                      child: Container(
+                        margin: EdgeInsets.all(8.0),
+                        width: 30,
+                        height: 30,
                         decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.all(8.0),
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image:
-                                  AssetImage('assets/images/login/${icon}.png'),
-                              fit: BoxFit.cover,
-                            ),
+                          image: DecorationImage(
+                            image:
+                                AssetImage('assets/images/login/${icon}.png'),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       ),

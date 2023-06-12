@@ -51,10 +51,11 @@ class PaymentPage extends StatelessWidget {
           appScheme: 'MyApp',
           cardQuota: [2, 3]),
       callback: (Map<String, String> result) {
-        print(result);
         if (result['imp_success'] == 'true') {
+          // 주문 완료 하는 로직 들어가야함.
           Get.to(() => CompleteOrderPage());
         } else {
+          // 주문 실패 로직 들어가야함.
           Get.to(
             () => FailOrderPage(),
             routeName: '/fail_order_page',

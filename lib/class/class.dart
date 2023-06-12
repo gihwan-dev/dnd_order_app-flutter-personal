@@ -40,6 +40,7 @@ class MyCartController extends GetxController {
   var payStatus = false.obs;
   var longitude = ''.obs;
   var latitude = ''.obs;
+  var client = ''.obs;
 
   void addItem(Item item) {
     if (cart.contains(item)) {
@@ -72,6 +73,14 @@ class MyCartController extends GetxController {
     for (var item in cart) {
       total.value += item.price * item.amount;
     }
+  }
+
+  void onOrder(String userEmail) {
+    // 요청 메서드
+    // 성공적이라면 payStatus = true
+    // client = 사용자 이메일로 설정
+    // true 반환
+    // 아니라면 false 반환
   }
 }
 
