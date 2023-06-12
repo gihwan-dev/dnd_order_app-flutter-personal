@@ -44,7 +44,7 @@ class PaymentPage extends StatelessWidget {
           merchantUid: 'mid_${DateTime.now().millisecondsSinceEpoch}',
           amount: myCartController.total.value,
           buyerName: userInfoController.userName.value,
-          buyerTel: userInfoController.phoneNumber.value,
+          buyerTel: userInfoController.userPhoneNumber.value,
           buyerEmail: userInfoController.userEmail.value,
           buyerAddr: userInfoController.userAddress.value,
           buyerPostcode: userInfoController.userPostCode.value,

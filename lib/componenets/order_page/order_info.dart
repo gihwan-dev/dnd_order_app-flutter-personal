@@ -44,7 +44,7 @@ class _OrderInfoState extends State<OrderInfo> {
           ),
           Row(
             children: [
-              Text("전화번호: ${userInfoController.phoneNumber}"),
+              Text("전화번호: ${userInfoController.userPhoneNumber}"),
               TextButton(
                 child: Text('변경'),
                 onPressed: () => {},

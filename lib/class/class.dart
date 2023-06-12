@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dnd_order_app/const/const.dart';
 import 'package:get/get.dart';
 
 class AllStoreController extends GetxController {
@@ -76,20 +77,22 @@ class MyCartController extends GetxController {
 
 class UserInfoController extends GetxController {
   var userName = ''.obs;
-  var phoneNumber = ''.obs;
+  var userPhoneNumber = ''.obs;
   var userAddress = ''.obs;
   var userDetailAddress = ''.obs;
   var userEmail = ''.obs;
   var userPostCode = ''.obs;
   var token = ''.obs;
-  final dio = Dio();
+  final dio = Dio(BaseOptions(
+    baseUrl: REQ_URL,
+  ));
 
-  void setName(String enteredName) {
+  void setUserName(String enteredName) {
     userName.value = enteredName;
   }
 
-  void setPhoneNumber(String enteredPhoneNumber) {
-    phoneNumber.value = enteredPhoneNumber;
+  void setUserPhoneNumber(String enteredPhoneNumber) {
+    userPhoneNumber.value = enteredPhoneNumber;
   }
 
   void setUserAddress(String enteredAddress) {
@@ -107,24 +110,53 @@ class UserInfoController extends GetxController {
   void setUserPostCode(String enteredPostCode) {
     userPostCode.value = enteredPostCode;
   }
+
+  Future<bool> getUserInfo(String? enteredUserEmail) async {
+    if (enteredUserEmail == null) {
+      return false;
+    }
+    final result = await dio.post(
+      '/user/',
+      data: {
+        "userEmail": enteredUserEmail,
+      },
+    );
+    if (result.data["isValid"] == false) {
+      return false;
+    }
+    userName.value = result.data["userName"];
+    userPhoneNumber.value = result.data["userPhoneNumber"];
+    userAddress.value = result.data["userAddress"];
+    userDetailAddress.value = result.data["userDetailAddress"];
+    userEmail.value = result.data["userEmail"];
+    userPostCode.value = result.data["userPostCode"];
+    return true;
+  }
 }
 
 class CreateUserController extends GetxController {
   var userName = ''.obs;
-  var phoneNumber = ''.obs;
+  var userPhoneNumber = ''.obs;
   var userAddress = ''.obs;
   var userDetailAddress = ''.obs;
   var userEmail = ''.obs;
   var userPostCode = ''.obs;
   var userPassword = ''.obs;
-  final dio = Dio();
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: REQ_URL,
+      receiveTimeout: Duration(seconds: 20),
+      connectTimeout: Duration(seconds: 20),
+      sendTimeout: Duration(seconds: 20),
+    ),
+  );
 
-  void setName(String enteredName) {
+  void setUserName(String enteredName) {
     userName.value = enteredName;
   }
 
-  void setPhoneNumber(String enteredPhoneNumber) {
-    phoneNumber.value = enteredPhoneNumber;
+  void setUserPhoneNumber(String enteredPhoneNumber) {
+    userPhoneNumber.value = enteredPhoneNumber;
   }
 
   void setUserAddress(String enteredAddress) {
@@ -147,19 +179,27 @@ class CreateUserController extends GetxController {
     userPassword.value = enteredPassword;
   }
 
-  void createNewUser() async {
-    final response = await dio.post(
-      'http://192.168.0.2:8000/user',
-      data: {
-        userName: userName.value,
-        userEmail: userEmail.value,
-        userPassword: userPassword.value,
-        phoneNumber: phoneNumber.value,
-        userAddress: userAddress.value,
-        userDetailAddress: userDetailAddress.value,
-        userPostCode: userPostCode.value,
-      },
-    );
-    print(response);
+  Future<bool> createNewUser() async {
+    try {
+      final response = await dio.post(
+        "/user/signup",
+        data: {
+          "userName": userName.value,
+          "userEmail": userEmail.value,
+          "userPassword": userPassword.value,
+          "userPhoneNumber": userPhoneNumber.value,
+          "userAddress": userAddress.value,
+          "userDetailAddress": userDetailAddress.value,
+          "userPostCode": userPostCode.value,
+        },
+      );
+      if (response.data["created"] == true) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      print("error: $error");
+      return false;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dnd_order_app/class/class.dart';
+import 'package:dnd_order_app/const/const.dart';
 import 'package:dnd_order_app/main.dart';
 import 'package:dnd_order_app/pages/signup_page.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final dio = Dio(
     BaseOptions(
-      baseUrl: "http://192.168.0.2:8000",
+      baseUrl: REQ_URL,
       receiveTimeout: Duration(seconds: 20),
       connectTimeout: Duration(seconds: 20),
       sendTimeout: Duration(seconds: 20),
@@ -62,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
       return value.length >= 7;
     }
 
-    void buttonTappedHandler() async {
+    Future<void> buttonTappedHandler() async {
       try {
         if (level == 1 && isValidEmail(enteredEmail)) {
           final response = await dio.post(
@@ -71,19 +72,20 @@ class _LoginPageState extends State<LoginPage> {
               'userEmail': enteredEmail,
             },
           );
-
-          setState(() {
-            if (response.data['isValid'] == true) {
+          if (response.data['isValid'] == true) {
+            setState(() {
               buttonColor = Colors.green;
               label = "비밀번호를 입력해 주세요.";
               level++;
-            } else {
+            });
+          } else {
+            setState(() {
               buttonColor = Colors.yellow;
               label = "이미 존재하는 이메일 입니다. 로그인을 위해 비밀번호를 입력해 주세요.";
               level++;
               isExistingEmail = true;
-            }
-          });
+            });
+          }
         } else if (level == 1 && !isValidEmail(enteredEmail)) {
           setState(
             () {
@@ -91,9 +93,7 @@ class _LoginPageState extends State<LoginPage> {
               label = "올바른 이메일 형식을 입력해주세요.";
             },
           );
-        }
-
-        if (level == 2 && isValidPassword(enteredPassword)) {
+        } else if (level == 2 && isValidPassword(enteredPassword)) {
           if (isExistingEmail) {
             // 비밀번호와 이메일을 전달해 로그인을 시도한다.
             final response = await dio.post('/user/signin', data: {
