@@ -1,4 +1,5 @@
 import 'package:dnd_order_app/class/class.dart';
+import 'package:dnd_order_app/const/const.dart';
 import 'package:dnd_order_app/pages/complete_order_page.dart';
 import 'package:dnd_order_app/pages/fail_order_page.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,17 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return IamportPayment(
       appBar: new AppBar(
-        title: new Text('결제'),
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: BLUE,
+        ),
+        backgroundColor: BACKGROUND,
+        title: new Text(
+          '결제',
+          style: TextStyle(
+            color: BLUE,
+          ),
+        ),
       ),
       initialChild: Container(
         child: Center(

@@ -6,6 +6,7 @@ import 'package:dnd_order_app/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -30,6 +31,12 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController textEditingController =
       new TextEditingController();
+
+  String btnText = 'continue';
+
+  CircularProgressIndicator btnLoading = CircularProgressIndicator();
+
+  bool isLoading = false;
 
   int level = 1;
 
@@ -76,12 +83,14 @@ class _LoginPageState extends State<LoginPage> {
             setState(() {
               buttonColor = Colors.green;
               label = "비밀번호를 입력해 주세요.";
+              btnText = "Sign up";
               level++;
             });
           } else {
             setState(() {
               buttonColor = Colors.yellow;
               label = "이미 존재하는 이메일 입니다. 로그인을 위해 비밀번호를 입력해 주세요.";
+              btnText = "Sign in";
               level++;
               isExistingEmail = true;
             });
@@ -176,6 +185,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       },
       child: Scaffold(
+        backgroundColor: BACKGROUND,
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.all(40.0),
@@ -197,24 +207,48 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Text('배달앱 시작을 위해 회원가입을 진행해주세요.'),
+              Text(
+                '배달앱 시작을 위해 회원가입을 진행해주세요.',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
               SizedBox(
                 height: 60,
               ),
-              Container(
-                width: 300,
-                child: TextField(
-                  controller: textEditingController,
-                  onChanged: (value) => {
-                    onChangeHandler(value),
-                  },
-                  decoration: InputDecoration(
-                    labelText: label,
+              Neumorphic(
+                style: NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  lightSource: LightSource.topLeft,
+                  depth: 10,
+                ),
+                child: Container(
+                  width: 300,
+                  child: TextField(
+                    controller: textEditingController,
+                    onChanged: (value) => {
+                      onChangeHandler(value),
+                    },
+                    decoration: InputDecoration(
+                      labelText: label,
+                      border: UnderlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 15,
+              ),
+              isLoading
+                  ? btnLoading
+                  : Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(),
+                    ),
+              SizedBox(
+                height: 15,
               ),
               Align(
                 alignment: Alignment.center,
@@ -232,33 +266,43 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  onPressed: () => {
-                    buttonTappedHandler(),
-                    textEditingController.clear(),
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await buttonTappedHandler();
+                    textEditingController.clear();
+                    setState(() {
+                      isLoading = false;
+                    });
                   },
-                  child: Text('Continue'),
+                  child: Text(btnText),
                 ),
               ),
               SizedBox(
                 height: 60,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Text('아래 이메일 계정으로 간편하게 시작하기'),
+              Text(
+                '아래 이메일 계정으로 간편하게 시작하기',
+                style: TextStyle(
+                  color: BLUE,
+                ),
               ),
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ...iconList.map(
-                    (icon) => Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Container(
+              Neumorphic(
+                style: NeumorphicStyle(
+                  color: BACKGROUND,
+                  shape: NeumorphicShape.flat,
+                  lightSource: LightSource.topLeft,
+                  depth: 10,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ...iconList.map(
+                      (icon) => Container(
                         margin: EdgeInsets.all(8.0),
                         width: 30,
                         height: 30,
@@ -271,8 +315,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )
             ],
           ),

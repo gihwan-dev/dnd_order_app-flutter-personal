@@ -39,6 +39,7 @@ class RecommendStore extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(0, 5, 10, 5),
             child: Neumorphic(
               style: NeumorphicStyle(
+                color: BACKGROUND,
                 lightSource: LightSource.top,
                 depth: 10,
                 shape: NeumorphicShape.flat,

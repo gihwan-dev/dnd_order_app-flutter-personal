@@ -11,6 +11,7 @@ class SearchingFood extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(25, 15, 25, 0),
       child: Neumorphic(
         style: NeumorphicStyle(
+          color: BACKGROUND,
           shape: NeumorphicShape.flat,
           lightSource: LightSource.top,
           depth: 10,

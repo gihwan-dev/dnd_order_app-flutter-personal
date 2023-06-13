@@ -1,9 +1,11 @@
 import 'package:dnd_order_app/class/class.dart';
+import 'package:dnd_order_app/const/const.dart';
 import 'package:dnd_order_app/main.dart';
 import 'package:dnd_order_app/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk_template.dart';
@@ -114,7 +116,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text('계속해서 회원가입을 진행해 주세요.'),
+                  Text(
+                    '계속해서 회원가입을 진행해 주세요.',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
                   SizedBox(
                     height: 60,
                   ),
@@ -131,6 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 '우편번호: ',
                                 style: TextStyle(
                                   fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                               Text(userPostCode),
@@ -145,6 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 '주소: ',
                                 style: TextStyle(
                                   fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                               Text(userAddress),
@@ -160,31 +169,68 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ],
                   ),
-                  Container(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: '상세 주소를 입력해 주세요.',
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Neumorphic(
+                    style: NeumorphicStyle(
+                      color: BACKGROUND,
+                      lightSource: LightSource.top,
+                      depth: 10,
+                      shape: NeumorphicShape.flat,
+                    ),
+                    child: Container(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
+                          labelText: '상세 주소를 입력해 주세요.',
+                        ),
+                        onChanged: (value) => userDetailAddressHandler(value),
                       ),
-                      onChanged: (value) => userDetailAddressHandler(value),
                     ),
                   ),
                   SizedBox(
-                    height: 16,
+                    height: 20,
                   ),
-                  Container(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: '이름',
+                  Neumorphic(
+                    style: NeumorphicStyle(
+                      lightSource: LightSource.top,
+                      depth: 10,
+                      color: BACKGROUND,
+                    ),
+                    child: Container(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
+                          labelText: '이름',
+                        ),
+                        onChanged: (value) => userNameHandler(value),
                       ),
-                      onChanged: (value) => userNameHandler(value),
                     ),
                   ),
-                  Container(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: '전화번호(010-1234-5678)',
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Neumorphic(
+                    style: NeumorphicStyle(
+                      depth: 10,
+                      color: BACKGROUND,
+                      lightSource: LightSource.top,
+                    ),
+                    child: Container(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
+                          labelText: '전화번호(010-1234-5678)',
+                        ),
+                        onChanged: (value) => userPhoneNumberHandler(value),
                       ),
-                      onChanged: (value) => userPhoneNumberHandler(value),
                     ),
                   ),
                   SizedBox(

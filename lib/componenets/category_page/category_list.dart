@@ -1,3 +1,4 @@
+import 'package:dnd_order_app/const/const.dart';
 import 'package:dnd_order_app/pages/select_menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -34,7 +35,12 @@ class _CategoryListState extends State<CategoryList> {
             },
             child: Container(
               decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey))),
+                border: Border(
+                  bottom: BorderSide(
+                    color: LIGHT_BLUE,
+                  ),
+                ),
+              ),
               child: Padding(
                 padding: EdgeInsets.fromLTRB(5, 15, 5, 10),
                 child: Row(
@@ -57,7 +63,7 @@ class _CategoryListState extends State<CategoryList> {
                         Text(
                           item.name,
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
+                              fontSize: 18, fontWeight: FontWeight.w500),
                         ),
                         Row(
                           children: [

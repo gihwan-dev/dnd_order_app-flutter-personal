@@ -1,3 +1,4 @@
+import 'package:dnd_order_app/componenets/complete_order_page/order_detail.dart';
 import 'package:dnd_order_app/componenets/complete_order_page/top_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,6 +17,7 @@ class CompleteOrderPage extends StatelessWidget {
         body: Column(
           children: [
             TopBanner(),
+            OrderDetail(),
           ],
         ),
       ),

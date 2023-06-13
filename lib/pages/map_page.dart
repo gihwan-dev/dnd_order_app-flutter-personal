@@ -1,3 +1,4 @@
+import 'package:dnd_order_app/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -36,7 +37,14 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('지도'),
+        elevation: 0,
+        title: Text(
+          '지도',
+          style: TextStyle(
+            color: BLUE,
+          ),
+        ),
+        backgroundColor: BACKGROUND,
       ),
       body: GoogleMap(
         initialCameraPosition: _deu,

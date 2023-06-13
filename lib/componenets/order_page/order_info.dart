@@ -23,34 +23,38 @@ class _OrderInfoState extends State<OrderInfo> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
             children: [
-              Text('주문자명: ${userInfoController.userName}'),
-              TextField(
-                onChanged: (value) {
-                  userInfoController.userName.value = value;
-                },
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Text('주소: ${userInfoController.userAddress}'),
-              TextField(
-                onChanged: (value) {
-                  userInfoController.userAddress.value = value;
-                },
+              Text(
+                '주문자명: ${userInfoController.userName}',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
           Row(
             children: [
-              Text("전화번호: ${userInfoController.userPhoneNumber}"),
-              TextField(
-                onChanged: (value) {
-                  userInfoController.userPhoneNumber.value = value;
-                },
+              Text(
+                '주소: ${userInfoController.userAddress}',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                "전화번호: ${userInfoController.userPhoneNumber}",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

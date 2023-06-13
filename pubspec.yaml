@@ -25,11 +25,22 @@ dependencies:
   kpostal: ^0.5.1
   http: ^0.13.6
   flutter_neumorphic: ^3.2.0
+  flutter_native_splash: ^2.2.19
+
+dependency_overrides:
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+flutter_native_splash:
+  color: "#F0F0F3"
+
+  android_12:
+    color: "#F0F0F3"
+    image: assets/images/login/logo.png
 
 flutter:
   uses-material-design: true

@@ -39,6 +39,7 @@ class CategoryFood extends StatelessWidget {
           ),
           Neumorphic(
             style: NeumorphicStyle(
+              color: BACKGROUND,
               shape: NeumorphicShape.flat,
               lightSource: LightSource.top,
               depth: 10,

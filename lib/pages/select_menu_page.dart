@@ -1,6 +1,7 @@
 import 'package:dnd_order_app/componenets/select_menu_page/banner_image.dart';
 import 'package:dnd_order_app/componenets/select_menu_page/banner_text.dart';
 import 'package:dnd_order_app/componenets/select_menu_page/item_list.dart';
+import 'package:dnd_order_app/const/const.dart';
 import 'package:dnd_order_app/pages/cart_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,9 +32,20 @@ class _SelectMenuPageState extends State<SelectMenuPage> {
     return GestureDetector(
       onTap: () => {FocusScope.of(context).requestFocus(new FocusNode())},
       child: Scaffold(
+        backgroundColor: BACKGROUND,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Text('메뉴 선택'),
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: BLUE,
+          ),
+          backgroundColor: BACKGROUND,
+          title: Text(
+            '메뉴 선택',
+            style: TextStyle(
+              color: BLUE,
+            ),
+          ),
         ),
         body: Column(
           children: [

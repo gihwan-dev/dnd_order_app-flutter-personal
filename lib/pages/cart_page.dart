@@ -35,6 +35,7 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       backgroundColor: BACKGROUND,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BACKGROUND,
         iconTheme: IconThemeData(
           color: BLUE,

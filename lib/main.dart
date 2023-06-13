@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 List<Store> DUMMY_STORE = [
   new Store('store1', 4.2, 324),
@@ -22,6 +23,8 @@ List<Store> DUMMY_STORE = [
 ];
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MyApp());
 }
 
@@ -82,7 +85,7 @@ class _MainAppState extends State<MainApp> {
     if (userInfoController.userEmail.value != '') {
       return;
     }
-    userInfoController.getUserInfo(email);
+    await userInfoController.getUserInfo(email);
   }
 
   void onCategoryTapped(String menu) {
@@ -131,10 +134,10 @@ class _MainAppState extends State<MainApp> {
       builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            backgroundColor: BACKGROUND,
             body: SplashPage(),
           );
         } else if (snapshot.hasError) {
+          FlutterNativeSplash.remove();
           return Scaffold(
             backgroundColor: BACKGROUND,
             body: Center(
@@ -142,6 +145,7 @@ class _MainAppState extends State<MainApp> {
             ),
           );
         } else if (snapshot.data == null) {
+          FlutterNativeSplash.remove();
           return LoginPage();
         } else {
           final AllStoreController allStoreController = Get.put(
@@ -158,12 +162,10 @@ class _MainAppState extends State<MainApp> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Scaffold(
-                  backgroundColor: BACKGROUND,
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  body: SplashPage(),
                 );
               } else if (snapshot.data == false) {
+                FlutterNativeSplash.remove();
                 return Scaffold(
                   backgroundColor: BACKGROUND,
                   body: Center(
@@ -171,6 +173,7 @@ class _MainAppState extends State<MainApp> {
                   ),
                 );
               } else {
+                FlutterNativeSplash.remove();
                 return GestureDetector(
                   onTap: () => {
                     FocusScope.of(context).requestFocus(new FocusNode()),

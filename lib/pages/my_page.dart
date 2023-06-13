@@ -1,5 +1,6 @@
 import 'package:dnd_order_app/componenets/my_page/my_page_menu.dart';
 import 'package:dnd_order_app/componenets/my_page/profile.dart';
+import 'package:dnd_order_app/const/const.dart';
 import 'package:flutter/material.dart';
 
 class MyPage extends StatelessWidget {
@@ -8,14 +9,23 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('내 정보'),
+      backgroundColor: BACKGROUND,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: BACKGROUND,
+        title: Text(
+          '내 정보',
+          style: TextStyle(
+            color: BLUE,
+          ),
         ),
-        body: Column(
-          children: [
-            Profile(),
-            MyPageMenu(),
-          ],
-        ));
+      ),
+      body: Column(
+        children: [
+          Profile(),
+          MyPageMenu(),
+        ],
+      ),
+    );
   }
 }

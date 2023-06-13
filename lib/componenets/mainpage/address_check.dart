@@ -30,6 +30,7 @@ class _AddressCheckState extends State<AddressCheck> {
           SizedBox(height: 10),
           Neumorphic(
             style: NeumorphicStyle(
+              color: BACKGROUND,
               lightSource: LightSource.top,
               depth: 10,
               shape: NeumorphicShape.flat,
