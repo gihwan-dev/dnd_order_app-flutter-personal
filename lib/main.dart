@@ -70,6 +70,10 @@ class _MainAppState extends State<MainApp> {
     UserInfoController(),
   );
 
+  final OrderInfoController orderInfoController = Get.put(
+    OrderInfoController(),
+  );
+
   Future<String?> isUserSaved() async {
     final UserInfoController userInfoController = Get.find();
     if (userInfoController.userName.value != '') {

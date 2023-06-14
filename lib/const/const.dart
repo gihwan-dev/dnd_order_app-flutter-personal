@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 const API_KEY = 'AIzaSyD4eCRXp-xMLWPlzL22lYXq3PIyOhdBWCE';
 
-// const REQ_URL = "http://192.168.0.124:8000"; // 학교
+const REQ_URL = "http://192.168.0.124:8000"; // 학교
 
-const REQ_URL = "http://192.168.0.2:8000"; // 집
+// const REQ_URL = "http://192.168.0.2:8000"; // 집
 
 const BLUE = Color.fromRGBO(154, 197, 244, 1);
 

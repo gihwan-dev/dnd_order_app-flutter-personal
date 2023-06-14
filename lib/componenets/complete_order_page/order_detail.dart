@@ -1,8 +1,11 @@
 import 'package:dnd_order_app/class/class.dart';
+import 'package:dnd_order_app/const/const.dart';
+import 'package:dnd_order_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 
 class OrderDetail extends StatelessWidget {
@@ -10,33 +13,72 @@ class OrderDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MyCartController myCartController = Get.find();
+    final OrderInfoController orderInfoController = Get.find();
     return Column(
       children: [
-        Text('주문 상세 정보'),
-        Expanded(
+        Text(
+          '주문 메뉴',
+          style: TextStyle(
+            color: BLUE,
+            fontWeight: FontWeight.w700,
+            fontSize: 20,
+          ),
+        ),
+        Neumorphic(
+          style: NeumorphicStyle(
+            color: BACKGROUND,
+            depth: 10,
+          ),
+          margin: EdgeInsets.all(16),
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Column(
+            width: 340,
+            height: 300,
+            child: ListView(
+              scrollDirection: Axis.vertical,
               children: [
-                Expanded(
-                  child: Container(
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        ...myCartController.cart.map((item) => (ListTile(
-                              title: Text(item.name),
-                              subtitle: Text(item.price.toString()),
-                              trailing: Text(item.amount.toString()),
-                            )))
-                      ],
-                    ),
-                  ),
-                )
+                ...orderInfoController.cart.map(
+                  (item) => (item.amount > 0
+                      ? ListTile(
+                          title: Text(
+                            item.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          subtitle: Text(
+                            '${item.price.toString()}원',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          trailing: Text(
+                            '수량: ${item.amount.toString()}',
+                            style: TextStyle(
+                              color: BLUE,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      : SizedBox()),
+                ),
               ],
             ),
           ),
-        )
+        ),
+        NeumorphicButton(
+            style: NeumorphicStyle(
+              color: BACKGROUND,
+            ),
+            child: Text(
+              '메인화면으로 이동',
+              style: TextStyle(
+                color: BLUE,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            onPressed: () => {
+                  Get.to(MainApp()),
+                })
       ],
     );
   }

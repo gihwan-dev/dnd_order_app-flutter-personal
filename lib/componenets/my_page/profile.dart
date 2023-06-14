@@ -16,7 +16,8 @@ class Profile extends StatelessWidget {
       children: [
         Neumorphic(
           style: NeumorphicStyle(
-            depth: 0,
+            color: BACKGROUND,
+            depth: 10,
           ),
           child: Container(
             child: Row(

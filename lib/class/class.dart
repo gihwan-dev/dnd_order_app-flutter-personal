@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:dnd_order_app/const/const.dart';
 import 'package:get/get.dart';
@@ -24,19 +26,98 @@ class Store {
   Store(this.name, this.rating, this.review_count);
 }
 
+class OrderInfoController extends GetxController {
+  final userEmail = ''.obs;
+  final userName = ''.obs;
+  // final storeName = ''.obs;
+  final total = 0.obs;
+  final payMethod = ''.obs;
+  final payDate = ''.obs;
+  List<Item> cart = [];
+  final dio = Dio(BaseOptions(
+    baseUrl: REQ_URL,
+  ));
+  Future<bool> getOrder(String enteredUserEmail) async {
+    // 주문 정보가 있는지 없는지 확인
+    final result = await dio.post(
+      '/order/',
+      data: {
+        "userEmail": enteredUserEmail,
+      },
+    );
+    if (result.data["isValidate"] == false) {
+      return false;
+    }
+    // 있으면 오더 인포 세팅 작업
+    userEmail.value = result.data["userEmail"];
+    userName.value = result.data["userName"];
+    total.value = result.data["total"];
+    payMethod.value = result.data["payMethod"];
+    payDate.value = result.data["payDate"];
+    cart = [
+      ...result.data["cart"].map((item) {
+        return Item.fromJson(item);
+      })
+    ];
+    // 이후 리턴 트루
+    return true;
+  }
+
+  Future<bool> setOrder() async {
+    try {
+      var encodedCart = [
+        ...cart.map((item) {
+          return item.toJson();
+        })
+      ];
+      print(encodedCart);
+      final result = await dio.post('/order/complete', data: {
+        "userEmail": userEmail.value,
+        "userName": userName.value,
+        "total": total.value,
+        "payMethod": payMethod.value,
+        "payDate": payDate.value,
+        "cart": encodedCart,
+      });
+      if (result.data["accepted"] == true) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+}
+
 class Item {
   final String name;
   final String description;
   final int price;
   int amount = 0;
   Item(this.name, this.description, this.price, [this.amount = 0]);
+
+  Item.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        description = json['description'],
+        price = json['price'],
+        amount = json['amount'];
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "description": description,
+      "price": price,
+      "amount": amount,
+    };
+  }
 }
 
 class MyCartController extends GetxController {
   var cart = <Item>[].obs;
   var total = 0.obs;
   var request = ''.obs;
-  var payMethod = ''.obs;
+  var payMethod = '카드'.obs;
   var payStatus = false.obs;
   var longitude = ''.obs;
   var latitude = ''.obs;

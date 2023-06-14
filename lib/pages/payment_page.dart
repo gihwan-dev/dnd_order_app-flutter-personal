@@ -1,4 +1,5 @@
 import 'package:dnd_order_app/class/class.dart';
+import 'package:dnd_order_app/componenets/order_page/order_info.dart';
 import 'package:dnd_order_app/const/const.dart';
 import 'package:dnd_order_app/pages/complete_order_page.dart';
 import 'package:dnd_order_app/pages/fail_order_page.dart';
@@ -61,10 +62,32 @@ class PaymentPage extends StatelessWidget {
           buyerPostcode: userInfoController.userPostCode.value,
           appScheme: 'MyApp',
           cardQuota: [2, 3]),
-      callback: (Map<String, String> result) {
+      callback: (Map<String, String> result) async {
         if (result['imp_success'] == 'true') {
           // 주문 완료 하는 로직 들어가야함.
-          Get.to(() => CompleteOrderPage());
+          final OrderInfoController orderInfoController = Get.find();
+          orderInfoController.userEmail.value =
+              userInfoController.userEmail.value;
+          orderInfoController.userName.value =
+              userInfoController.userName.value;
+          orderInfoController.total.value = myCartController.total.value;
+          orderInfoController.payMethod.value =
+              myCartController.payMethod.value;
+          orderInfoController.payDate.value = DateTime.now().toString();
+          orderInfoController.cart = [...myCartController.cart.value];
+
+          bool result = await orderInfoController.setOrder();
+
+          if (result) {
+            myCartController.clearCart();
+            myCartController.payStatus.value = true;
+            Get.to(() => CompleteOrderPage());
+          } else {
+            Get.to(
+              () => FailOrderPage(),
+              routeName: '/fail_order_page',
+            );
+          }
         } else {
           // 주문 실패 로직 들어가야함.
           Get.to(
