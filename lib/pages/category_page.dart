@@ -1,6 +1,7 @@
 import 'package:dnd_order_app/componenets/category_page/category_filter.dart';
 import 'package:dnd_order_app/componenets/category_page/category_list.dart';
 import 'package:dnd_order_app/componenets/mainpage/category_food.dart';
+import 'package:dnd_order_app/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -36,6 +37,7 @@ class _CategoryPageState extends State<CategoryPage> {
               child: Expanded(
                 child: Neumorphic(
                   style: NeumorphicStyle(
+                    color: BACKGROUND,
                     shape: NeumorphicShape.flat,
                     lightSource: LightSource.top,
                     depth: 10,

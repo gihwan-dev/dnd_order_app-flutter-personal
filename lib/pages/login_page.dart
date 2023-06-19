@@ -219,6 +219,7 @@ class _LoginPageState extends State<LoginPage> {
               Neumorphic(
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.flat,
+                  color: BACKGROUND,
                   lightSource: LightSource.topLeft,
                   depth: 10,
                 ),

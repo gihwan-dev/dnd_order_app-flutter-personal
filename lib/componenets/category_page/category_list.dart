@@ -35,6 +35,7 @@ class _CategoryListState extends State<CategoryList> {
             },
             child: Container(
               decoration: BoxDecoration(
+                color: BACKGROUND,
                 border: Border(
                   bottom: BorderSide(
                     color: LIGHT_BLUE,
